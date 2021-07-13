@@ -1,6 +1,7 @@
 import requests
 from math import sqrt
 import pytesseract
+import cv2
 
 
 def possible_sell_price(name: str):
@@ -32,8 +33,11 @@ def get_items(all_items: list):
     readed_line = ""
     recognized_items = list()
 
+    img = cv2.imread("vf.png")
+    crop_img = img[250:455, 416:1262]
+
     pytesseract.pytesseract.tesseract_cmd = r'C:\\Program Files\\Tesseract-OCR\\tesseract'
-    for line in pytesseract.image_to_string(r'vf3.png').split("\n"):
+    for line in pytesseract.image_to_string(crop_img).split("\n"):
         if "Prime" in line:
             readed_line = line
 
