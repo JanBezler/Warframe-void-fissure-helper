@@ -1,5 +1,5 @@
 C:/Program Files/Tesseract-OCR/tesseract.exe
-37
-365
-795
-472
+1271
+660
+1676
+1042

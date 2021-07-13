@@ -46,8 +46,8 @@ def get_items(all_items: list, reg: dict):
     img = pyautogui.screenshot(
         region=(reg["left"], reg["top"], reg["right"] - reg["left"], reg["bottom"] - reg["top"]))
     img = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
-    cv2.imshow("Screenshot", img)
-    cv2.waitKey(0)
+    # cv2.imshow("Screenshot", img)
+    # cv2.waitKey(0)
 
     for line in pytesseract.image_to_string(img).split("\n"):
         if "Prime" in line:
@@ -205,6 +205,10 @@ class App(tk.Frame):
             self, text="Listen", command=self.listen)
         self.listen_button.pack(side="top")
 
+        self.items_display = tk.Label(self)
+        self.items_display["text"] = ""
+        self.items_display.pack(side="top")
+
         self.setup = tk.Button(self, text="Setup", command=self.launch_setup)
         self.setup.pack(side="top")
 
@@ -228,8 +232,14 @@ class App(tk.Frame):
         location, reg = read_settings()
         pytesseract.pytesseract.tesseract_cmd = location
 
+        found_items = str()
+
         for item in get_items(self.all_prime_items, reg):
-            print(item, possible_sell_price(item))
+            found_items += (item + " - " +
+                            str(possible_sell_price(item))) + "\n"
+
+        self.items_display["text"] = found_items
+        self.items_display.pack()
 
 
 app = App(master=tk.Tk())
