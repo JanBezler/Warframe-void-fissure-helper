@@ -11,6 +11,8 @@ from tkinter.filedialog import askopenfilename
 import keyboard
 
 
+# TODO: wyszukiwać po słowie np "destereza" pomijając prime i np. handle i podawać ceny całych setów
+
 def possible_sell_price(name: str):
 
     # set_name = name.split()
